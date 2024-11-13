@@ -1,50 +1,29 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# Pomodoro Clocker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pomodoro Clocker é uma aplicação em React com TypeScript para ajudar os usuários a gerenciar seu tempo usando a Técnica Pomodoro. Com este aplicativo, você pode configurar durações de Pomodoro, intervalos curtos e longos, acompanhar ciclos e visualizar estatísticas de produtividade.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- Configuração personalizada do tempo de Pomodoro, intervalo curto e intervalo longo.
+- Definição do número de ciclos antes de um intervalo longo.
+- Início, pausa e reset do temporizador de forma fácil.
+- Notificação ao término de cada ciclo Pomodoro.
+- Visualização de estatísticas de produtividade, como o número total de ciclos concluídos e o dia mais produtivo.
+- **Banco de Dados Simples** - O `db.json` é usado para armazenar dados locais e persistir informações dos ciclos e estatísticas.
 
-### `npm start`
+##  Tecnologias Utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **React** - Biblioteca JavaScript para criação de interfaces de usuário.
+- **TypeScript** - Superset de JavaScript para adicionar tipagem estática.
+- **JSON Server** - Para simular uma API REST com o arquivo `db.json`.
+- **JavaScript** Para manipulação de lógica e estado do aplicativo.
+- **CSS** - Para estilização básica do layout.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📦 Instalação
 
-### `npm test`
+1. Clone o repositório:
+   ```bash
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-=======
-# pomodoro-clocker-grp3
->>>>>>> d75b8bfe00d515ea81b59cb0387fd61fa9fbe8cb
