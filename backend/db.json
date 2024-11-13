@@ -1,0 +1,9 @@
+{
+  "configuracoes": {
+    "duracaoPomodoro": 8,
+    "intervaloCurto": 0,
+    "intervaloLongo": 1,
+    "pomodorosAntesIntervaloLongo": 4
+  },
+  "ciclosConcluidos": 0
+}

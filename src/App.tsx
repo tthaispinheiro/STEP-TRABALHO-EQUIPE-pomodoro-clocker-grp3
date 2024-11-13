@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Configuracao from './componentes/Configuracao';
+import Temporizador from './componentes/Temporizador';
+import CiclosConcluidos from './componentes/CiclosConcluidos';
+import './css/App.css'; // Verifique se o caminho está correto
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <Router>
+      <header className="app-header">
+        <h1>Pomodoro Clocker</h1>
+        <nav>
+          <Link to="/">Temporizador</Link>
+          <Link to="/configuracao">Configurações</Link>
+          <Link to="/ciclos">Ciclos Concluídos</Link>
+        </nav>
       </header>
-    </div>
+      <div className="app-content">
+        <Routes>
+          <Route path="/" element={<Temporizador />} />
+          <Route path="/configuracao" element={<Configuracao />} />
+          <Route path="/ciclos" element={<CiclosConcluidos />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
