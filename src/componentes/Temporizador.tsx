@@ -12,13 +12,13 @@ const PomodoroTimer: React.FC = () => {
     intervaloLongo: 15,
     pomodorosAntesIntervaloLongo: 4,
   });
-  const [iniciado, setIniciado] = useState(false); // Flag para controlar o início do temporizador
+  const [iniciado, setIniciado] = useState(false); 
 
   // Solicitar permissão para notificações
   useEffect(() => {
     if (Notification.permission !== "granted") {
       Notification.requestPermission().then(permission => {
-        console.log(permission); // Pode ser "granted", "denied", ou "default"
+        console.log(permission); 
       });
     }
   }, []); // O array vazio [] faz com que esse efeito seja executado apenas uma vez, na montagem do componente
@@ -47,11 +47,10 @@ const PomodoroTimer: React.FC = () => {
     }
 
     if (tempo === 0) {
-      // Aumenta o contador de ciclos após o Pomodoro ser completado
       setCiclosConcluidos((prev) => prev + 1);
-      setPomodorosContados((prev) => prev + 1); // Aumenta o contador de pomodoros
+      setPomodorosContados((prev) => prev + 1); 
 
-      // Se o número de Pomodoros for igual ao configurado para o intervalo longo, começa o intervalo longo
+      
       if (pomodorosContados >= configuracoes.pomodorosAntesIntervaloLongo) {
         setTempo(configuracoes.intervaloLongo * 60); // Intervalo longo
         setPomodorosContados(0); // Resetando o contador de Pomodoros
@@ -87,7 +86,7 @@ const PomodoroTimer: React.FC = () => {
     setCiclosConcluidos((prev) => prev + 1); // Incrementa o número de ciclos concluídos
     setPomodorosContados((prev) => prev + 1); // Incrementa o número de pomodoros
 
-    // Não iniciar outro ciclo automaticamente
+    
     setIniciado(false); // Garante que o próximo ciclo só será iniciado quando o usuário clicar em "Iniciar"
 
     // Configura o tempo para o intervalo

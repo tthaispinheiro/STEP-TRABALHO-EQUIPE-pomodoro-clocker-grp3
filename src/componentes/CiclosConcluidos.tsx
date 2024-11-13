@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import api from '../api'; 
 
 const CiclosConcluidos: React.FC = () => {
-  // Inicializando ciclosConcluidos com 0 para evitar undefined
   const [ciclosConcluidos, setCiclosConcluidos] = useState<number>(0);
 
   useEffect(() => {
     api.get('/ciclosConcluidos')
       .then((response) => {
-        console.log("Resposta da API:", response.data); // Verifique a estrutura da resposta da API
-        setCiclosConcluidos(response.data.ciclosConcluidos); // Atualiza o estado com o valor da API
+        console.log("Resposta da API:", response.data); 
+        setCiclosConcluidos(response.data.ciclosConcluidos); 
       })
       .catch((error) => {
         console.error("Erro ao buscar ciclos concluídos:", error);
