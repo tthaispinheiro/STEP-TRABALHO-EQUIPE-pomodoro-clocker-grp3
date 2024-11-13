@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import CiclosConcluidos from './componentes/CiclosConcluidos';
 import Configuracao from './componentes/Configuracao';
 import Temporizador from './componentes/Temporizador';
-import CiclosConcluidos from './componentes/CiclosConcluidos';
-import './css/App.css'; // Verifique se o caminho está correto
+import './css/App.css';
 
 const App: React.FC = () => {
   return (
