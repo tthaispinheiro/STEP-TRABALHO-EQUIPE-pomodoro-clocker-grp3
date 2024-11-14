@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <nav>
           <Link to="/">Temporizador</Link>
           <Link to="/configuracao">Configurações</Link>
-          <Link to="/ciclos">Ciclos Concluídos</Link>
+          {/* <Link to="/ciclos">Ciclos Concluídos</Link> */}
         </nav>
       </header>
       <div className="app-content">

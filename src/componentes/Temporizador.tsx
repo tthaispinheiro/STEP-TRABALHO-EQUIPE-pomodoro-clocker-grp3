@@ -12,16 +12,16 @@ const PomodoroTimer: React.FC = () => {
     intervaloLongo: 15,
     pomodorosAntesIntervaloLongo: 4,
   });
-  const [iniciado, setIniciado] = useState(false); 
+  const [iniciado, setIniciado] = useState(false);
 
   // Solicitar permissão para notificações
   useEffect(() => {
     if (Notification.permission !== "granted") {
       Notification.requestPermission().then(permission => {
-        console.log(permission); 
+        console.log(permission);
       });
     }
-  }, []); // O array vazio [] faz com que esse efeito seja executado apenas uma vez, na montagem do componente
+  }, []);
 
   // Carregar configurações da API
   useEffect(() => {
@@ -48,9 +48,8 @@ const PomodoroTimer: React.FC = () => {
 
     if (tempo === 0) {
       setCiclosConcluidos((prev) => prev + 1);
-      setPomodorosContados((prev) => prev + 1); 
+      setPomodorosContados((prev) => prev + 1);
 
-      
       if (pomodorosContados >= configuracoes.pomodorosAntesIntervaloLongo) {
         setTempo(configuracoes.intervaloLongo * 60); // Intervalo longo
         setPomodorosContados(0); // Resetando o contador de Pomodoros
@@ -69,7 +68,6 @@ const PomodoroTimer: React.FC = () => {
     }
 
     return () => clearInterval(interval);
-
   }, [tempo, emPausa, pomodorosContados, configuracoes, iniciado, ciclosConcluidos]);
 
   const iniciarPomodoro = () => {
@@ -82,14 +80,11 @@ const PomodoroTimer: React.FC = () => {
   };
 
   const finalizarPomodoro = () => {
-    // Contabiliza o ciclo, mas não inicia o próximo automaticamente
     setCiclosConcluidos((prev) => prev + 1); // Incrementa o número de ciclos concluídos
     setPomodorosContados((prev) => prev + 1); // Incrementa o número de pomodoros
 
-    
     setIniciado(false); // Garante que o próximo ciclo só será iniciado quando o usuário clicar em "Iniciar"
 
-    // Configura o tempo para o intervalo
     if (pomodorosContados >= configuracoes.pomodorosAntesIntervaloLongo) {
       setTempo(configuracoes.intervaloLongo * 60); // Intervalo longo
       setPomodorosContados(0); // Resetando o contador de Pomodoros
@@ -108,16 +103,17 @@ const PomodoroTimer: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <h2>Pomodoro Timer</h2>
-      <p>{Math.floor(tempo / 60)}:{(tempo % 60).toString().padStart(2, '0')}</p>
+      <div style={{ fontSize: '6em', fontWeight: 'bold', margin: '20px 0' }}>
+        {Math.floor(tempo / 60)}:{(tempo % 60).toString().padStart(2, '0')}
+      </div>
       <button onClick={iniciarPomodoro} disabled={iniciado}>Iniciar</button>
       <button onClick={pausarPomodoro} disabled={!iniciado || emPausa}>Pausar</button>
       <button onClick={finalizarPomodoro} disabled={!iniciado}>Finalizar</button>
-      <h3>Ciclos Concluídos: {ciclosConcluidos}</h3> {/* Exibe o número de ciclos concluídos */}
-      <h3>Pomodoros Contados: {pomodorosContados}</h3> {/* Exibe o número de Pomodoros concluídos */}
-      
-      {/* Botão para consultar estatísticas */}
+      <h3>Ciclos Concluídos: {ciclosConcluidos}</h3>
+      <h3>Pomodoros Contados: {pomodorosContados}</h3>
+
       <button onClick={() => alert(`Ciclos Concluídos: ${ciclosConcluidos}\nPomodoros Contados: ${pomodorosContados}`)}>
         Ver Estatísticas
       </button>

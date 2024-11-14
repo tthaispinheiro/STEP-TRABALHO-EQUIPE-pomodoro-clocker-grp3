@@ -9,21 +9,23 @@ const Configuracao: React.FC = () => {
     intervaloLongo: 15,
     pomodorosAntesIntervaloLongo: 4,
   });
-  const [modalVisivel, setModalVisivel] = useState(false); // Estado para controlar a visibilidade do modal
+  const [modalVisivel, setModalVisivel] = useState(false);
 
   useEffect(() => {
-    api.get('/configuracoes').then((response) => {
-      setConfiguracoes(response.data);
-    }).catch((error) => {
-      console.error("Erro ao buscar configurações", error);
-    });
+    api.get('/configuracoes')
+      .then((response) => {
+        setConfiguracoes(response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar configurações", error);
+      });
   }, []);
 
   const salvarConfiguracoes = () => {
     api.put('/configuracoes', configuracoes)
       .then(() => {
-        setModalVisivel(true); // Exibe o modal ao salvar com sucesso
-        setTimeout(() => setModalVisivel(false), 3000); // Esconde o modal após 3 segundos
+        setModalVisivel(true);
+        setTimeout(() => setModalVisivel(false), 3000);
       })
       .catch((error) => {
         console.error("Erro ao salvar configurações", error);
@@ -75,7 +77,7 @@ const Configuracao: React.FC = () => {
       </label>
       <button onClick={salvarConfiguracoes}>Salvar Configurações</button>
 
-      {/* Modal */}
+      {/* Modal de confirmação */}
       {modalVisivel && (
         <div className="modal">
           <div className="modal-content">
