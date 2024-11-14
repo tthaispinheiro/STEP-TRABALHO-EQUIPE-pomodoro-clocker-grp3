@@ -89,3 +89,29 @@ button {
 .modal-content button:hover {
   background-color: #0056b3;
 }
+/* Estilos para o relógio gigante */
+.pomodoro-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda a altura da tela */
+  font-size: 10em; /* Aumenta significativamente o tamanho do texto */
+  font-weight: bold;
+  color: #ff6347; /* Cor do texto (ajuste conforme desejado) */
+  background-color: #f0f0f0; /* Cor de fundo para maior contraste */
+  text-align: center;
+}
+
+/* Botões posicionados abaixo do relógio */
+.pomodoro-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.pomodoro-buttons button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
