@@ -52,7 +52,7 @@ button {
 }
 
 /* Estilo do Modal */
-.modal-overlay {
+/* .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -89,20 +89,19 @@ button {
 .modal-content button:hover {
   background-color: #0056b3;
 }
-/* Estilos para o relógio gigante */
 .pomodoro-timer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Ocupa toda a altura da tela */
-  font-size: 10em; /* Aumenta significativamente o tamanho do texto */
+  height: 100vh; 
+  font-size: 10em; 
   font-weight: bold;
-  color: #ff6347; /* Cor do texto (ajuste conforme desejado) */
-  background-color: #f0f0f0; /* Cor de fundo para maior contraste */
+  color: #ff6347; 
+  background-color: #f0f0f0; 
   text-align: center;
 }
 
-/* Botões posicionados abaixo do relógio */
+
 .pomodoro-buttons {
   display: flex;
   justify-content: center;
@@ -114,4 +113,65 @@ button {
   padding: 15px 30px;
   font-size: 1.2em;
   cursor: pointer;
+} */
+
+
+/* Estilos para o cronômetro gigante */
+.cronometro-container {
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.cronometro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: #0c9dd6;
+  margin: 20px auto;
+  position: relative;
+}
+
+.tempo {
+  font-size: 6rem;
+  color: white;
+  font-weight: bold;
+}
+
+.controles {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #ffee54;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+  background-color: #45a049;
+  color: white;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+

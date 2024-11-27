@@ -1,40 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api';
+import '../css/App.css';
+
+interface Configuracoes {
+  duracaoPomodoro: number;
+  intervaloCurto: number;
+  intervaloLongo: number;
+  pomodorosAntesIntervaloLongo: number;
+}
 
 const PomodoroTimer: React.FC = () => {
   const [tempo, setTempo] = useState(25 * 60); // Duração do Pomodoro (em segundos)
   const [emPausa, setEmPausa] = useState(false); // Controla se está em pausa
   const [ciclosConcluidos, setCiclosConcluidos] = useState(0); // Ciclos concluídos
   const [pomodorosContados, setPomodorosContados] = useState(0); // Pomodoros contados
-  const [configuracoes, setConfiguracoes] = useState({
+  const [configuracoes, setConfiguracoes] = useState<Configuracoes>({
     duracaoPomodoro: 25,
     intervaloCurto: 5,
     intervaloLongo: 15,
     pomodorosAntesIntervaloLongo: 4,
   });
+
   const [iniciado, setIniciado] = useState(false);
 
-  // Solicitar permissão para notificações
+  // Lê as configurações a partir do localStorage
   useEffect(() => {
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission().then(permission => {
-        console.log(permission);
-      });
+    const configuracoesSalvas = localStorage.getItem("configPomodoro");
+    if (configuracoesSalvas) {
+      setConfiguracoes(JSON.parse(configuracoesSalvas));
     }
   }, []);
 
-  // Carregar configurações da API
+  // Atualiza o tempo conforme as configurações
   useEffect(() => {
-    api.get('/configuracoes')
-      .then((response) => {
-        setConfiguracoes(response.data);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar configurações", error);
-      });
-  }, []);
+    setTempo(configuracoes.duracaoPomodoro * 60);
+  }, [configuracoes]);
 
-  // Função do temporizador
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
 
@@ -50,14 +50,16 @@ const PomodoroTimer: React.FC = () => {
       setCiclosConcluidos((prev) => prev + 1);
       setPomodorosContados((prev) => prev + 1);
 
+      // Salva as estatísticas no localStorage
+      salvarEstatisticas();
+
       if (pomodorosContados >= configuracoes.pomodorosAntesIntervaloLongo) {
         setTempo(configuracoes.intervaloLongo * 60); // Intervalo longo
-        setPomodorosContados(0); // Resetando o contador de Pomodoros
+        setPomodorosContados(0);
       } else {
         setTempo(configuracoes.intervaloCurto * 60); // Intervalo curto
       }
 
-      // Exibe notificação ao completar um Pomodoro
       if (Notification.permission === "granted") {
         new Notification("Pomodoro Concluído", {
           body: `Você completou um Pomodoro! Ciclos concluídos: ${ciclosConcluidos + 1}`,
@@ -80,19 +82,18 @@ const PomodoroTimer: React.FC = () => {
   };
 
   const finalizarPomodoro = () => {
-    setCiclosConcluidos((prev) => prev + 1); // Incrementa o número de ciclos concluídos
-    setPomodorosContados((prev) => prev + 1); // Incrementa o número de pomodoros
-
-    setIniciado(false); // Garante que o próximo ciclo só será iniciado quando o usuário clicar em "Iniciar"
+    setCiclosConcluidos((prev) => prev + 1);
+    setPomodorosContados((prev) => prev + 1);
+    setIniciado(false);
+    setTempo(configuracoes.duracaoPomodoro * 60); // Resetando o tempo
 
     if (pomodorosContados >= configuracoes.pomodorosAntesIntervaloLongo) {
       setTempo(configuracoes.intervaloLongo * 60); // Intervalo longo
-      setPomodorosContados(0); // Resetando o contador de Pomodoros
+      setPomodorosContados(0);
     } else {
       setTempo(configuracoes.intervaloCurto * 60); // Intervalo curto
     }
 
-    // Exibe notificação de finalização
     if (Notification.permission === "granted") {
       new Notification("Pomodoro Finalizado", {
         body: `Ciclo concluído! Ciclos concluídos: ${ciclosConcluidos + 1}`,
@@ -102,21 +103,38 @@ const PomodoroTimer: React.FC = () => {
     }
   };
 
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <h2>Pomodoro Timer</h2>
-      <div style={{ fontSize: '6em', fontWeight: 'bold', margin: '20px 0' }}>
-        {Math.floor(tempo / 60)}:{(tempo % 60).toString().padStart(2, '0')}
-      </div>
-      <button onClick={iniciarPomodoro} disabled={iniciado}>Iniciar</button>
-      <button onClick={pausarPomodoro} disabled={!iniciado || emPausa}>Pausar</button>
-      <button onClick={finalizarPomodoro} disabled={!iniciado}>Finalizar</button>
-      <h3>Ciclos Concluídos: {ciclosConcluidos}</h3>
-      <h3>Pomodoros Contados: {pomodorosContados}</h3>
+  // Função para resetar todos os valores
+  const resetarPomodoro = () => {
+    setCiclosConcluidos(0); // Zera o número de ciclos
+    setPomodorosContados(0); // Zera o número de pomodoros contados
+    setTempo(configuracoes.duracaoPomodoro * 60); // Restaura o tempo para o valor inicial do Pomodoro
+    setIniciado(false); // Garante que o cronômetro está parado
+    setEmPausa(false); // Garante que o cronômetro não está pausado
+  };
 
-      <button onClick={() => alert(`Ciclos Concluídos: ${ciclosConcluidos}\nPomodoros Contados: ${pomodorosContados}`)}>
-        Ver Estatísticas
-      </button>
+  // Função para salvar as estatísticas no localStorage
+  const salvarEstatisticas = () => {
+    const hoje = new Date().toISOString().split('T')[0]; // Pega a data no formato YYYY-MM-DD
+    const estatisticasSalvas = JSON.parse(localStorage.getItem('estatisticasPomodoro') || '{}');
+
+    estatisticasSalvas[hoje] = (estatisticasSalvas[hoje] || 0) + 1; // Incrementa o número de Pomodoros para o dia
+    localStorage.setItem('estatisticasPomodoro', JSON.stringify(estatisticasSalvas));
+  };
+
+  return (
+    <div className="cronometro-container">
+      <h2>Pomodoro Timer</h2>
+      <div className="cronometro">
+        <div className="tempo">
+          {Math.floor(tempo / 60)}:{(tempo % 60).toString().padStart(2, '0')}
+        </div>
+      </div>
+      <div className="controles">
+        <button onClick={iniciarPomodoro} disabled={iniciado}>Iniciar</button>
+        <button onClick={pausarPomodoro} disabled={!iniciado || emPausa}>Pausar</button>
+        <button onClick={finalizarPomodoro}>Finalizar</button>
+        <button onClick={resetarPomodoro}>Resetar</button>
+      </div>
     </div>
   );
 };
