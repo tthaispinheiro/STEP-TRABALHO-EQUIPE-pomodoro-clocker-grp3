@@ -8,8 +8,7 @@ Pomodoro Clocker é uma aplicação em React com TypeScript para ajudar os usuá
 - Definição do número de ciclos antes de um intervalo longo.
 - Início, pausa e reset do temporizador de forma fácil.
 - Notificação ao término de cada ciclo Pomodoro.
-- Visualização de estatísticas de produtividade, como o número total de ciclos concluídos e o dia mais produtivo.
-- **Banco de Dados Simples** - O `db.json` é usado para armazenar dados locais e persistir informações dos ciclos e estatísticas.
+- **Banco de Dados Simples** - O `db.json` é usado para armazenar dados locais e persistir informações dos ciclos.
 
 ##  Tecnologias Utilizadas
 
@@ -19,10 +18,7 @@ Pomodoro Clocker é uma aplicação em React com TypeScript para ajudar os usuá
 - **JavaScript** Para manipulação de lógica e estado do aplicativo.
 - **CSS** - Para estilização básica do layout.
 
-## 📦 Instalação
 
-1. Clone o repositório:
-   ```bash
 
 
 
